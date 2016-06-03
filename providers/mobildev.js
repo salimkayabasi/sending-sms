@@ -1,7 +1,7 @@
 var util = require('util');
 var request = require('request');
 var requestUtil = require('../util/request');
-baseUrl = 'https://secure.mobilus.net/sms/gateway.asp?username=%s&' +
+var baseUrl = 'https://secure.mobilus.net/sms/gateway.asp?username=%s&' +
   'password=%s&company=%s&action=%s&numbers=%s&message=%s';
 var MOBILDEV_USERNAME = '';
 var MOBILDEV_PASSWORD = '';
@@ -10,6 +10,9 @@ var MOBILDEV_ACTION = '';
 var init = false;
 
 exports.setAuth = function (username, password, company, action) {
+  if (!username || !password || !company || !action) {
+    throw Error('Missing Parameters');
+  }
   MOBILDEV_USERNAME = username;
   MOBILDEV_PASSWORD = password;
   MOBILDEV_COMPANY = company;

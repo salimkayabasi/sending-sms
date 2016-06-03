@@ -10,6 +10,9 @@ var CLICKATELL_ID = '';
 var init = false;
 
 exports.setAuth = function (username, password, from, apiId) {
+  if (!username || !password || !from || !apiId) {
+    throw Error('Missing Parameters');
+  }
   CLICKATELL_USERNAME = username;
   CLICKATELL_PASSWORD = password;
   CLICKATELL_FROM = from;
