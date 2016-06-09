@@ -8,7 +8,6 @@
     "patch": "npm version patch -m 'New patch version %s'",
     "lint": "./node_modules/.bin/eslint .",
     "test": "./node_modules/.bin/mocha --recursive",
-    "prepublish": "npm run lint & npm run test",
     "main": "index.js"
   },
   "repository": {
