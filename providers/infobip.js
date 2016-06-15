@@ -38,7 +38,11 @@ exports.send = function (to, text, cb) {
       if (err) {
         cb(err);
       } else {
-        cb(null, body);
+        if (body && body.results && body.results.length) {
+          cb(null, body.results[0]);
+        } else {
+          cb(null, body);
+        }
       }
     }));
 };

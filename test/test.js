@@ -6,9 +6,15 @@ var SMS = require('../');
 var text = process.env.TEXT;
 var phone = process.env.PHONE;
 
-describe('Sms Tests', function () {
+// test text with 200 chars
+var longText = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. ' +
+  'Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque ' +
+  'penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu';
+
+describe('Sms Tests w/o auth', function () {
   it('should give init error', function (done) {
     SMS.send('infobip', phone, text, function (err, sms) {
+      expect(err).to.exist();
       expect(err.message).to.equal('Init required');
       expect(sms).not.to.exist();
       done();
@@ -32,11 +38,24 @@ describe('Sms Tests', function () {
       done();
     }
   });
-  it('should send sms', function (done) {
+});
+
+describe('Send sms w/ auth', function () {
+  before(function () {
     SMS.setAuth('infobip', process.env.INFOBIP_USERNAME, process.env.INFOBIP_PASSWORD);
+  });
+  it('should send sms', function (done) {
     SMS.send('infobip', phone, text, function (err, sms) {
       expect(err).not.to.exist();
       expect(sms).to.exist();
+      done();
+    });
+  });
+  it('should send sms', function (done) {
+    SMS.send('infobip', phone, longText, function (err, results) {
+      expect(err).not.to.exist();
+      expect(results).to.exist();
+      expect(results).have.length(2);
       done();
     });
   });
