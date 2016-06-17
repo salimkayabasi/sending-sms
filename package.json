@@ -1,6 +1,6 @@
 {
   "name": "kapgel-sms",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "SMS module",
   "scripts": {
     "major": "npm version major -m 'New major version %s'",
