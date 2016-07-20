@@ -1,16 +1,16 @@
 var request = require('request');
 var requestUtil = require('../util/request');
-var baseUrl = 'http://api.infobip.com/api/v3/sendsms/json';
-var INFOBIP_USERNAME = '';
-var INFOBIP_PASSWORD = '';
+var baseUrl = 'https://api.infobip.com/sms/1/text/single';
+var INFOBIP_SENDER = '';
+var INFOBIP_AUTH = '';
 var init = false;
 
-exports.setAuth = function (username, password) {
+exports.setAuth = function (username, password, sender) {
   if (!username || !password) {
     throw Error('Missing Parameters');
   }
-  INFOBIP_USERNAME = username;
-  INFOBIP_PASSWORD = password;
+  INFOBIP_SENDER = sender;
+  INFOBIP_AUTH = 'Basic ' + new Buffer(username + ':' + password).toString('base64');
   init = true;
 };
 
@@ -19,19 +19,17 @@ exports.send = function (to, text, cb) {
     cb(new Error('Init required'));
     return;
   }
+
   request.post({
     url: baseUrl,
     json: true,
+    headers: {
+      Authorization: INFOBIP_AUTH
+    },
     body: {
-      authentication: {
-        username: INFOBIP_USERNAME,
-        password: INFOBIP_PASSWORD
-      },
-      messages: [{
-        sender: 'KapGel',
-        text: text,
-        recipients: [{ gsm: to }]
-      }]
+      from: INFOBIP_SENDER,
+      text: text,
+      to: to
     }
   },
     requestUtil.handler(function (err, body) {

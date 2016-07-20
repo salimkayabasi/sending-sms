@@ -4,6 +4,9 @@ exports.handler = function (cb) {
       return cb(err);
     }
     if (response.statusCode !== 200) {
+      if (body) {
+        return cb(body);
+      }
       return cb();
     }
     if (!typeof body === Object) {
