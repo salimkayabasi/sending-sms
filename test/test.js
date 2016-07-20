@@ -42,7 +42,10 @@ describe('Sms Tests w/o auth', function () {
 
 describe('Send sms w/ auth', function () {
   before(function () {
-    SMS.setAuth('infobip', process.env.INFOBIP_USERNAME, process.env.INFOBIP_PASSWORD);
+    SMS.setAuth('infobip',
+      process.env.INFOBIP_USERNAME,
+      process.env.INFOBIP_PASSWORD,
+      process.env.INFOBIP_SENDER);
   });
   it('should send sms', function (done) {
     SMS.send('infobip', phone, text, function (err, sms) {
