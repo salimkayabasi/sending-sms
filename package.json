@@ -1,25 +1,26 @@
 {
-  "name": "kapgel-sms",
+  "name": "sending-sms",
   "version": "1.1.1",
   "description": "SMS module",
   "scripts": {
-    "major": "npm version major -m 'New major version %s'",
-    "minor": "npm version minor -m 'New minor version %s'",
-    "patch": "npm version patch -m 'New patch version %s'",
+    "major": "npm version major -m \"New major version %s\"",
+    "minor": "npm version minor -m \"New minor version %s\"",
+    "patch": "npm version patch -m \"New patch version %s\"",
     "lint": "./node_modules/.bin/eslint .",
-    "test": "./node_modules/.bin/mocha --recursive",
+    "mocha-test": "./node_modules/.bin/mocha --recursive",
+    "test": "npm run lint && npm run mocha-test",
     "main": "index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kapgel/kapgel-sms.git"
+    "url": "git+https://github.com/salimkayabasi/sending-sms.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kapgel/kapgel-sms/issues"
+    "url": "https://github.com/salimkayabasi/sending-sms/issues"
   },
-  "homepage": "https://github.com/kapgel/kapgel-sms#readme",
+  "homepage": "https://github.com/salimkayabasi/sending-sms#readme",
   "devDependencies": {
     "chai": "^3.5.0",
     "dirty-chai": "^1.2.2",
@@ -32,7 +33,7 @@
   "dependencies": {
     "anglicize": "^1.0.0",
     "async": "^2.0.0-rc.5",
-    "kapgel-logger": "^1.1.1",
+    "log-with": "^1.1.1",
     "lodash": "^4.13.1",
     "phone": "^1.0.7",
     "request": "^2.72.0"
