@@ -33,9 +33,10 @@
   "dependencies": {
     "anglicize": "^1.0.0",
     "async": "^2.0.0-rc.5",
-    "log-with": "^1.1.1",
     "lodash": "^4.13.1",
+    "log-with": "^1.2.1",
     "phone": "^1.0.7",
-    "request": "^2.72.0"
+    "request": "^2.72.0",
+    "twilio": "^2.11.1"
   }
 }
