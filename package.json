@@ -1,6 +1,6 @@
 {
   "name": "sending-sms",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "SMS module",
   "scripts": {
     "major": "npm version major -m \"New major version %s\"",
