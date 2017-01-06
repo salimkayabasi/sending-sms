@@ -64,7 +64,7 @@ var getToken = function (cb) {
 };
 
 exports.setAuth = function (username, password, customerCode, apiKey, vendorCode, originatorId) {
-  if (!username || !password || !customerCode || !apiKey || !vendorCode && !originatorId) {
+  if (!username || !password || !customerCode || !apiKey || !vendorCode || !originatorId) {
     throw Error('Missing Parameters');
   }
 

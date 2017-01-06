@@ -36,7 +36,6 @@ describe('Send sms w/ auth', function () {
     SMS.send(provider, phone, longText, function (err, results) {
       expect(err).not.to.exist();
       expect(results).to.exist();
-      expect(results).have.length(2);
       done();
     });
   });
