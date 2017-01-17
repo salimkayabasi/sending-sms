@@ -1,26 +1,28 @@
-var chai = require('chai');
-var dirtyChai = require('dirty-chai');
+const chai = require('chai');
+const dirtyChai = require('dirty-chai');
+const SMS = require('../');
+
 chai.use(dirtyChai);
-var expect = chai.expect;
-var SMS = require('../');
-var text = process.env.TEXT;
-var phone = process.env.PHONE;
+const expect = chai.expect;
+
+const text = process.env.TEXT;
+const phone = process.env.PHONE;
 
 // test text with 200 chars
-var longText = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. ' +
+const longText = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. ' +
   'Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque ' +
   'penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu';
 
-describe('Sms Tests w/o auth', function () {
-  it('should give init error', function (done) {
-    SMS.send('infobip', phone, text, function (err, sms) {
+describe('Sms Tests w/o auth', () => {
+  it('should give init error', (done) => {
+    SMS.send('infobip', phone, text, (err, sms) => {
       expect(err).to.exist();
       expect(err.message).to.equal('Init required');
       expect(sms).not.to.exist();
       done();
     });
   });
-  it('should give missing parameters error', function (done) {
+  it('should give missing parameters error', (done) => {
     try {
       SMS.setAuth('infobip', process.env.INFOBIP_USERNAME);
     } catch (error) {
@@ -29,7 +31,7 @@ describe('Sms Tests w/o auth', function () {
       done();
     }
   });
-  it('should give invalid provider error', function (done) {
+  it('should give invalid provider error', (done) => {
     try {
       SMS.setAuth('testprovider');
     } catch (error) {
@@ -40,22 +42,22 @@ describe('Sms Tests w/o auth', function () {
   });
 });
 
-describe('Send sms w/ auth', function () {
-  before(function () {
+describe('Send sms w/ auth', () => {
+  before(() => {
     SMS.setAuth('infobip',
       process.env.INFOBIP_USERNAME,
       process.env.INFOBIP_PASSWORD,
       process.env.INFOBIP_SENDER);
   });
-  it('should send sms', function (done) {
-    SMS.send('infobip', phone, text, function (err, sms) {
+  it('should send sms', (done) => {
+    SMS.send('infobip', phone, text, (err, sms) => {
       expect(err).not.to.exist();
       expect(sms).to.exist();
       done();
     });
   });
-  it('should send sms', function (done) {
-    SMS.send('infobip', phone, longText, function (err, results) {
+  it('should send sms', (done) => {
+    SMS.send('infobip', phone, longText, (err, results) => {
       expect(err).not.to.exist();
       expect(results).to.exist();
       done();

@@ -1,7 +1,8 @@
-var util = require('util');
-var request = require('request');
-var parseString = require('xml2js').parseString;
-var baseUrl = 'https://live.iletisimmakinesi.com/api/SMSGatewayWS/' +
+const util = require('util');
+const request = require('request');
+const parseString = require('xml2js').parseString;
+
+const baseUrl = 'https://live.iletisimmakinesi.com/api/SMSGatewayWS/' +
   'functions/sendSMS?' +
   'phoneNumbers=["%s"]&' +
   'templateText=%s&' +
@@ -10,7 +11,7 @@ var baseUrl = 'https://live.iletisimmakinesi.com/api/SMSGatewayWS/' +
   'isUTF8Allowed=false&' +
   'validityPeriod=60';
 
-var tokenUrl = 'https://live.iletisimmakinesi.com/api/UserGatewayWS/' +
+const tokenUrl = 'https://live.iletisimmakinesi.com/api/UserGatewayWS/' +
   'functions/authenticate?' +
   'userName=%s&' +
   'userPass=%s&' +
@@ -18,18 +19,18 @@ var tokenUrl = 'https://live.iletisimmakinesi.com/api/UserGatewayWS/' +
   'apiKey=%s&' +
   'vendorCode=%s';
 
-var USERNAME = '';
-var PASSWORD = '';
-var CUSTOMER_CODE = '';
-var API_KEY = '';
-var VENDOR_CODE = '';
-var ORIGINATOR = '';
-var init = false;
+let USERNAME = '';
+let PASSWORD = '';
+let CUSTOMER_CODE = '';
+let API_KEY = '';
+let VENDOR_CODE = '';
+let ORIGINATOR = '';
+let init = false;
 
-var getToken = function (cb) {
-  var url = util.format(tokenUrl, USERNAME, PASSWORD,
+const getToken = (cb) => {
+  const url = util.format(tokenUrl, USERNAME, PASSWORD,
     CUSTOMER_CODE, API_KEY, VENDOR_CODE);
-  request(url, function (err, res, body) {
+  request(url, (err, res, body) => {
     if (err) {
       cb(err);
       return;
@@ -39,7 +40,7 @@ var getToken = function (cb) {
       return;
     }
     parseString(body, { trim: true },
-      function (parsingError, result) {
+      (parsingError, result) => {
         if (parsingError) {
           cb(parsingError);
           return;
@@ -63,7 +64,7 @@ var getToken = function (cb) {
   });
 };
 
-exports.setAuth = function (username, password, customerCode, apiKey, vendorCode, originatorId) {
+exports.setAuth = (username, password, customerCode, apiKey, vendorCode, originatorId) => {
   if (!username || !password || !customerCode || !apiKey || !vendorCode || !originatorId) {
     throw Error('Missing Parameters');
   }
@@ -77,26 +78,26 @@ exports.setAuth = function (username, password, customerCode, apiKey, vendorCode
   init = true;
 };
 
-exports.send = function (to, text, cb) {
+exports.send = (to, text, cb) => {
   if (!init) {
     cb(new Error('Init required'));
     return;
   }
 
-  getToken(function (err, token) {
+  getToken((err, token) => {
     if (err) {
       cb(err);
       return;
     }
 
-    var url = util.format(baseUrl, to, text, ORIGINATOR, token);
-    request(url, function (requestError, res, body) {
+    const url = util.format(baseUrl, to, text, ORIGINATOR, token);
+    request(url, (requestError, res, body) => {
       if (requestError) {
         cb(requestError);
         return;
       }
       parseString(body, { trim: true },
-        function (parsingError, result) {
+        (parsingError, result) => {
           if (parsingError) {
             cb(parsingError);
             return;

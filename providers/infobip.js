@@ -1,20 +1,21 @@
-var request = require('request');
-var requestUtil = require('../util/request');
-var baseUrl = 'https://api.infobip.com/sms/1/text/single';
-var INFOBIP_SENDER = '';
-var INFOBIP_AUTH = '';
-var init = false;
+const request = require('request');
+const requestUtil = require('../util/request');
 
-exports.setAuth = function (username, password, sender) {
+const baseUrl = 'https://api.infobip.com/sms/1/text/single';
+let INFOBIP_SENDER = '';
+let INFOBIP_AUTH = '';
+let init = false;
+
+exports.setAuth = (username, password, sender) => {
   if (!username || !password) {
     throw Error('Missing Parameters');
   }
   INFOBIP_SENDER = sender;
-  INFOBIP_AUTH = 'Basic ' + new Buffer(username + ':' + password).toString('base64');
+  INFOBIP_AUTH = `Basic ${new Buffer(`${username}:${password}`).toString('base64')}`;
   init = true;
 };
 
-exports.send = function (to, text, cb) {
+exports.send = (to, text, cb) => {
   if (!init) {
     cb(new Error('Init required'));
     return;
@@ -28,19 +29,17 @@ exports.send = function (to, text, cb) {
     },
     body: {
       from: INFOBIP_SENDER,
-      text: text,
-      to: to
+      text,
+      to
     }
   },
-    requestUtil.handler(function (err, body) {
+    requestUtil.handler((err, body) => {
       if (err) {
         cb(err);
+      } else if (body && body.results && body.results.length) {
+        cb(null, body.results[0]);
       } else {
-        if (body && body.results && body.results.length) {
-          cb(null, body.results[0]);
-        } else {
-          cb(null, body);
-        }
+        cb(null, body);
       }
     }));
 };

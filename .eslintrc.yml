@@ -1,0 +1,14 @@
+extends: airbnb
+env:
+  mocha: true
+  node: true
+plugins:
+  - import
+  - react
+  - jsx-a11y
+rules:
+  global-require: 0
+  import/no-dynamic-require: 0
+  comma-dangle:
+    - error
+    - never
