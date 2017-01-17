@@ -8,7 +8,7 @@
     "patch": "npm version patch -m \"New patch version %s\"",
     "lint": "./node_modules/.bin/eslint .",
     "fix": "./node_modules/.bin/eslint . --fix",
-    "mocha-test": "./node_modules/.bin/mocha --recursive",
+    "mocha-test": "./node_modules/.bin/mocha --recursive --ui bdd --compilers js:babel-register --timeout 50000",
     "test": "npm run lint && npm run mocha-test",
     "main": "index.js"
   },
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/salimkayabasi/sending-sms#readme",
   "devDependencies": {
+    "babel-register": "^6.18.0",
     "chai": "^3.5.0",
     "dirty-chai": "^1.2.2",
     "eslint": "^3.13.1",

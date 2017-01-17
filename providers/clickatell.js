@@ -1,15 +1,16 @@
-var util = require('util');
-var request = require('request');
-var requestUtil = require('../util/request');
-var baseUrl = 'https://api.clickatell.com/http/sendmsg?api_id=%s&user=%s&' +
-  'password=%s&from=%s&to=%s&text=%s';
-var CLICKATELL_USERNAME = '';
-var CLICKATELL_PASSWORD = '';
-var CLICKATELL_FROM = '';
-var CLICKATELL_ID = '';
-var init = false;
+const util = require('util');
+const request = require('request');
+const requestUtil = require('../util/request');
 
-exports.setAuth = function (username, password, from, apiId) {
+const baseUrl = 'https://api.clickatell.com/http/sendmsg?api_id=%s&user=%s&' +
+  'password=%s&from=%s&to=%s&text=%s';
+let CLICKATELL_USERNAME = '';
+let CLICKATELL_PASSWORD = '';
+let CLICKATELL_FROM = '';
+let CLICKATELL_ID = '';
+let init = false;
+
+exports.setAuth = (username, password, from, apiId) => {
   if (!username || !password || !from || !apiId) {
     throw Error('Missing Parameters');
   }
@@ -20,19 +21,18 @@ exports.setAuth = function (username, password, from, apiId) {
   init = true;
 };
 
-exports.send = function (to, text, cb) {
+exports.send = (to, text, cb) => {
   if (!init) {
     cb(new Error('Init required'));
     return;
   }
-  var url = util.format(baseUrl, CLICKATELL_ID, CLICKATELL_USERNAME,
+  const url = util.format(baseUrl, CLICKATELL_ID, CLICKATELL_USERNAME,
     CLICKATELL_PASSWORD, CLICKATELL_FROM, to, text);
-  request(url,
-    requestUtil.handler(function (err, body) {
-      if (err) {
-        cb(err);
-      } else {
-        cb(null, body);
-      }
-    }));
+  request(url, requestUtil.handler((err, body) => {
+    if (err) {
+      cb(err);
+    } else {
+      cb(null, body);
+    }
+  }));
 };

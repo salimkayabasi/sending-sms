@@ -1,19 +1,21 @@
-var chai = require('chai');
-var dirtyChai = require('dirty-chai');
+const chai = require('chai');
+const dirtyChai = require('dirty-chai');
+const SMS = require('../');
+
 chai.use(dirtyChai);
-var expect = chai.expect;
-var SMS = require('../');
-var text = process.env.TEXT;
-var phone = process.env.PHONE;
-var provider = 'iletisimmakinesi';
+const expect = chai.expect;
+
+const text = process.env.TEXT;
+const phone = process.env.PHONE;
+const provider = 'iletisimmakinesi';
 
 // test text with 200 chars
-var longText = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. ' +
+const longText = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. ' +
   'Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque ' +
   'penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu';
 
-describe('Send sms w/ auth', function () {
-  before(function () {
+describe('Send sms w/ auth', () => {
+  before(() => {
     SMS.setAuth(provider,
       process.env.ILETISIM_USERNAME,
       process.env.ILETISIM_PASSWORD,
@@ -23,17 +25,15 @@ describe('Send sms w/ auth', function () {
       process.env.ILETISIM_ORIGINATOR);
   });
 
-  it('should send sms', function (done) {
-    this.timeout(5000);
-    SMS.send(provider, phone, text, function (err, sms) {
+  it('should send sms', (done) => {
+    SMS.send(provider, phone, text, (err, sms) => {
       expect(err).not.to.exist();
       expect(sms).to.exist();
       done();
     });
   });
-  it('should send sms', function (done) {
-    this.timeout(5000);
-    SMS.send(provider, phone, longText, function (err, results) {
+  it('should send sms', (done) => {
+    SMS.send(provider, phone, longText, (err, results) => {
       expect(err).not.to.exist();
       expect(results).to.exist();
       done();
