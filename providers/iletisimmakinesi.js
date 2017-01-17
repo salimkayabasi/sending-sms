@@ -39,7 +39,7 @@ const getToken = (cb) => {
       cb(new Error('Unexpected Auth Error'));
       return;
     }
-    parseString(body, { trim: true },
+    parseString(body, { trim: true, attrkey: '@' },
       (parsingError, result) => {
         if (parsingError) {
           cb(parsingError);
@@ -96,7 +96,7 @@ exports.send = (to, text, cb) => {
         cb(requestError);
         return;
       }
-      parseString(body, { trim: true },
+      parseString(body, { trim: true, attrkey: '@' },
         (parsingError, result) => {
           if (parsingError) {
             cb(parsingError);
