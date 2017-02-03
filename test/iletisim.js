@@ -33,9 +33,9 @@ describe('Send sms w/ auth', () => {
     });
   });
   it('should send sms', (done) => {
-    SMS.send(provider, phone, longText, (err, results) => {
+    SMS.send(provider, phone, longText, (err, result) => {
       expect(err).not.to.exist();
-      expect(results).to.exist();
+      expect(result).to.exist();
       done();
     });
   });

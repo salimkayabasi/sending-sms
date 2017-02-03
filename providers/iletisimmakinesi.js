@@ -2,14 +2,12 @@ const util = require('util');
 const request = require('request');
 const parseString = require('xml2js').parseString;
 
-const baseUrl = 'https://live.iletisimmakinesi.com/api/SMSGatewayWS/' +
-  'functions/sendSMS?' +
-  'phoneNumbers=["%s"]&' +
-  'templateText=%s&' +
+const baseUrl = 'https://live.iletisimmakinesi.com/api/SingleShotWS/' +
+  'functions/sendSingleShotSMS?' +
+  'phoneNumber=%s&' +
+  'messageText=%s&' +
   'originatorId=%s&' +
-  'token=%s&' +
-  'isUTF8Allowed=false&' +
-  'validityPeriod=60';
+  'token=%s';
 
 const tokenUrl = 'https://live.iletisimmakinesi.com/api/UserGatewayWS/' +
   'functions/authenticate?' +
