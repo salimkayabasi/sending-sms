@@ -5,3 +5,5 @@
 [![Build Status](https://travis-ci.org/salimkayabasi/sending-sms.svg?branch=master)](https://travis-ci.org/salimkayabasi/sending-sms)
 
 # Sending-SMS
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/salimkayabasi/sending-sms.svg)](https://greenkeeper.io/)
